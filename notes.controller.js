@@ -65,5 +65,5 @@ module.exports = {
   getNotes,
   removeNote,
   editNote,
-  editNoteById,
+  editNoteById
 }
