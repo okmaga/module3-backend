@@ -49,9 +49,21 @@ async function editNote(newNote) {
   console.log(chalk.bgBlue(`Note ${newNote.id} was updated`));
 }
 
+async function editNoteById(id, newTitle) {
+  const notes = await getNotes();
+
+  const newNotes = notes.map(note => note.id === id.toString()
+    ? { ... note, title: newTitle }
+    : note);
+
+  await fs.writeFile(notesPath, JSON.stringify(newNotes));
+  console.log(chalk.bgBlue(`Title for note ${id} was changed to ${newTitle}`));
+}
+
 module.exports = {
   addNote,
   getNotes,
   removeNote,
-  editNote
+  editNote,
+  editNoteById,
 }

@@ -1,7 +1,16 @@
 const express = require("express");
+const yargs = require("yargs");
+const pkg = require("./package.json");
 const chalk = require("chalk");
 const path = require("path");
-const { addNote, getNotes, removeNote, editNote } = require("./notes.controller");
+const {
+  addNote,
+  getNotes,
+  removeNote,
+  editNote,
+  editNoteById
+} = require("./notes.controller");
+yargs.version(pkg.version);
 
 const port = 3000;
 
@@ -55,6 +64,16 @@ app.post("/", async (req, res) => {
   });
 });
 
-app.listen(port, () => {
-  console.log(chalk.green(`Server has been started on port ${port}...`));
+// app.listen(port, () => {
+//   console.log(chalk.green(`Server has been started on port ${port}...`));
+// });
+
+yargs.command({
+  command: "edit",
+  describe: "Edit note by id",
+  async handler({ id, title }) {
+    await editNoteById(id, title);
+  }
 });
+
+yargs.parse();

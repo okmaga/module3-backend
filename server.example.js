@@ -22,7 +22,5 @@ const server = http.createServer(async (req, res) => {
       addNote(title);
       res.end(`Title = ${title} was added`);
     })
-
-
   }
 });
